@@ -201,7 +201,7 @@ namespace GroupProject
             await Task.Run(() =>
             {
                 ShellSort(numbers);
-            });
+            }).ConfigureAwait(false);
 
             stopwatch.Stop();
             return stopwatch.ElapsedMilliseconds.ToString();

@@ -28,8 +28,6 @@
         <TextBlock HorizontalAlignment="Left" x:Name="txtQuickSort" Margin="625,269,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="0s" VerticalAlignment="Top" Width="50"/>
         <TextBlock HorizontalAlignment="Left" x:Name="txtShellSort" Margin="625,307,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="0s" VerticalAlignment="Top" Width="50"/>
         <TextBlock HorizontalAlignment="Left" x:Name="txtTotal" Margin="625,347,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="0s" VerticalAlignment="Top" Width="50"/>
-
-
-
+        <Label x:Name="txtThreadUsed" HorizontalAlignment="Center" Margin="0,65,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

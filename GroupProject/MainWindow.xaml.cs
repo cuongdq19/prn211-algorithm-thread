@@ -158,11 +158,11 @@ namespace GroupProject
 
             return i + 1;
         }
-        public string QuickSortCount(int[] numbers)
+        public async Task<string> QuickSortCount(int[] numbers)
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            Task.Run(() =>
+            await Task.Run(() =>
             {
                 QuickSort(numbers, 0, numbers.Length - 1);
             }).ConfigureAwait(false);
@@ -200,11 +200,11 @@ namespace GroupProject
             }
         }
 
-        public string ShellSortCount(int[] numbers)
+        public async Task<string> ShellSortCount(int[] numbers)
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            Task.Run(() =>
+            await Task.Run(() =>
             {
                 ShellSort(numbers);
             }).ConfigureAwait(false);
@@ -238,6 +238,10 @@ namespace GroupProject
             txtMergeSort.Text = await asyncSort.MergeSort(array3) + "ms";
             txtQuickSort.Text = await asyncSort.QuickSortCount(array4) + "ms";
             txtShellSort.Text = await asyncSort.ShellSortCount(array5) + "ms";
+
+            int threadUsed = GetThreadsUsed();
+            txtThreadUsed.Content = $"Thread used: {threadUsed}";
+
             stopwatch.Stop();
             txtTotal.Text = stopwatch.ElapsedMilliseconds.ToString() + "ms";
         }
@@ -257,7 +261,11 @@ namespace GroupProject
             Task<string> task3 = Task.Run(() => MergeSort(array3));
             Task<string> task4 = Task.Run(() => QuickSortCount(array4));
             Task<string> task5 = Task.Run(() => ShellSortCount(array5));
+
+            int threadUsed = GetThreadsUsed();
+            txtThreadUsed.Content = $"Thread used: {threadUsed}";
             await Task.WhenAll(task1, task2, task3, task4, task5);
+
             txtBubbleSort.Text = task1.Result + "ms";
             txtSelectionSort.Text = task2.Result + "ms";
             txtMergeSort.Text = task3.Result + "ms";
@@ -282,6 +290,10 @@ namespace GroupProject
             txtMergeSort.Text = MergeSort(array3) + "ms";
             txtQuickSort.Text = QuickSortCountString(array4) + "ms";
             txtShellSort.Text = ShellSortCountString(array5) + "ms";
+
+            int threadUsed = GetThreadsUsed();
+            txtThreadUsed.Content = $"Thread used: {threadUsed}";
+
             stopwatch.Stop();
             txtTotal.Text = stopwatch.ElapsedMilliseconds.ToString() + "ms";
         }
@@ -301,16 +313,28 @@ namespace GroupProject
             Task<string> task3 = Task.Run(() => MergeSort(array3));
             Task<string> task4 = Task.Run(() => QuickSortCount(array4));
             Task<string> task5 = Task.Run(() => ShellSortCount(array5));
-            ThreadPool.GetAvailableThreads(out int availableWorker, out int _);
-            ThreadPool.GetMaxThreads(out int maxWorker, out int _);
-            int threadUsed = maxWorker - availableWorker;
+
+            int threadUsed = GetThreadsUsed();
+            txtThreadUsed.Content = $"Thread used: {threadUsed}";
+
             txtBubbleSort.Text = task1.Result + "ms";
             txtSelectionSort.Text = task2.Result + "ms";
             txtMergeSort.Text = task3.Result + "ms";
             txtQuickSort.Text = task4.Result + "ms";
             txtShellSort.Text = task5.Result + "ms";
+
             stopwatch.Stop();
             txtTotal.Text = stopwatch.ElapsedMilliseconds.ToString() + "ms";
+
+        }
+
+        private int GetThreadsUsed()
+        {
+            ThreadPool.GetAvailableThreads(out int availableWorker, out int _);
+            ThreadPool.GetMaxThreads(out int maxWorker, out int _);
+            int threadUsed = maxWorker - availableWorker;
+
+            return threadUsed;
         }
     }
 }
