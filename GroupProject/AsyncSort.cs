@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace GroupProject
@@ -118,8 +119,18 @@ namespace GroupProject
                     }
                 }
             });
+
             stopwatch.Stop();
             return stopwatch.ElapsedMilliseconds.ToString();
+        }
+
+        private static int GetThreadsUsed()
+        {
+            ThreadPool.GetAvailableThreads(out int availableWorker, out int _);
+            ThreadPool.GetMaxThreads(out int maxWorker, out int _);
+            int threadUsed = maxWorker - availableWorker;
+
+            return threadUsed;
         }
 
 
@@ -146,6 +157,7 @@ namespace GroupProject
                     arr[i] = temp;
                 }
             });
+
             stopwatch.Stop();
             return stopwatch.ElapsedMilliseconds.ToString();
         }
@@ -201,7 +213,7 @@ namespace GroupProject
             await Task.Run(() =>
             {
                 ShellSort(numbers);
-            }).ConfigureAwait(false);
+            });
 
             stopwatch.Stop();
             return stopwatch.ElapsedMilliseconds.ToString();

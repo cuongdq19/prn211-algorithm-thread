@@ -54,6 +54,7 @@ namespace GroupProject
                 }
             }
             stopwatch.Stop();
+
             return stopwatch.ElapsedMilliseconds.ToString();
         }
 
@@ -165,7 +166,7 @@ namespace GroupProject
             await Task.Run(() =>
             {
                 QuickSort(numbers, 0, numbers.Length - 1);
-            }).ConfigureAwait(false);
+            });
             stopwatch.Stop();
             return stopwatch.ElapsedMilliseconds.ToString();
         }
@@ -207,7 +208,7 @@ namespace GroupProject
             await Task.Run(() =>
             {
                 ShellSort(numbers);
-            }).ConfigureAwait(false);
+            });
 
             stopwatch.Stop();
             return stopwatch.ElapsedMilliseconds.ToString();
@@ -239,9 +240,6 @@ namespace GroupProject
             txtQuickSort.Text = await asyncSort.QuickSortCount(array4) + "ms";
             txtShellSort.Text = await asyncSort.ShellSortCount(array5) + "ms";
 
-            int threadUsed = GetThreadsUsed();
-            txtThreadUsed.Content = $"Thread used: {threadUsed}";
-
             stopwatch.Stop();
             txtTotal.Text = stopwatch.ElapsedMilliseconds.ToString() + "ms";
         }
@@ -262,9 +260,13 @@ namespace GroupProject
             Task<string> task4 = Task.Run(() => QuickSortCount(array4));
             Task<string> task5 = Task.Run(() => ShellSortCount(array5));
 
+
             int threadUsed = GetThreadsUsed();
             txtThreadUsed.Content = $"Thread used: {threadUsed}";
-            await Task.WhenAll(task1, task2, task3, task4, task5);
+
+            var task = Task.WhenAll(task1, task2, task3, task4, task5);
+
+            await task;
 
             txtBubbleSort.Text = task1.Result + "ms";
             txtSelectionSort.Text = task2.Result + "ms";
@@ -291,8 +293,6 @@ namespace GroupProject
             txtQuickSort.Text = QuickSortCountString(array4) + "ms";
             txtShellSort.Text = ShellSortCountString(array5) + "ms";
 
-            int threadUsed = GetThreadsUsed();
-            txtThreadUsed.Content = $"Thread used: {threadUsed}";
 
             stopwatch.Stop();
             txtTotal.Text = stopwatch.ElapsedMilliseconds.ToString() + "ms";
@@ -328,6 +328,7 @@ namespace GroupProject
 
         }
 
+
         private int GetThreadsUsed()
         {
             ThreadPool.GetAvailableThreads(out int availableWorker, out int _);
@@ -337,4 +338,6 @@ namespace GroupProject
             return threadUsed;
         }
     }
+
+    
 }
