@@ -1,0 +1,31 @@
+# Visual Studio files
+.vs/
+bin/
+obj/
+Debug/
+Release/
+packages/
+*.dbmdl
+*.jfm
+*.pfx
+*.snk
+*.user
+*.vspscc
+*_i.c
+*_p.c
+*.pidb
+*.suo
+*.sln.docstates
+
+# Resharper files
+_ReSharper*/
+*.ReSharper*
+*.DotSettings.user
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+build/
+[Bb]in/
+[Oo]bj/
