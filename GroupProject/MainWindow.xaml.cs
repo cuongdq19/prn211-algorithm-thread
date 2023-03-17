@@ -71,7 +71,6 @@ namespace GroupProject
             Thread sortThread = new Thread(() =>
             {
                 sw.Start();
-
                 bubbleSortResult = BubbleSortSync(bubbleSortArray);
                 selectionSortResult = SelectionSortSync(selectionSortArray);
                 quickSortResult = QuickSortSync(quickSortArray);
@@ -146,6 +145,7 @@ namespace GroupProject
                     txtQuickSort.Text = result[2];
                     txtShellSort.Text = result[3];
                     txtMergeSort.Text = result[4];
+                    txtTotal.Text = sw.ElapsedMilliseconds.ToString() + "ms";
                     txtThreadUsed.Text = threads.Distinct().Count().ToString();
                 });
             });
@@ -184,7 +184,6 @@ namespace GroupProject
             string bubbleSortResult = "", selectionSortResult = "", quickSortResult = "", shellSortResult = "", mergeSortResult = "";
 
             sw.Start();
-
             bubbleSortResult = BubbleSortSync(bubbleSortArray);
             selectionSortResult = SelectionSortSync(selectionSortArray);
             quickSortResult = QuickSortSync(quickSortArray);
@@ -225,8 +224,8 @@ namespace GroupProject
             txtSelection_Result.Text = ArrayToString(selectionSortArray);
             txtSQuick_Result.Text = ArrayToString(quickSortArray);
             txtShell_Result.Text = ArrayToString(shellSortArray);
-
             txtMerge_Result.Text = ArrayToString(mergeSortArray);
+
             string bubbleSortResult = "", selectionSortResult = "", quickSortResult = "", shellSortResult = "",mergeSortResult="";
 
             lbAlgorithm.Content = "Sync - Parallel";
