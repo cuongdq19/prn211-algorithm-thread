@@ -5,29 +5,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GroupProject"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="550" Width="1000">
     <Grid>
-        <Label Content="Group Project"  FontSize="30" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <Button Content="Sequential" FontSize="16" HorizontalAlignment="Left" Margin="86,166,0,0" VerticalAlignment="Top" Height="38" Width="115" Click="Async_Sequential_Click"/>
-        <Button Content="Sequential"  FontSize="16" HorizontalAlignment="Left" Margin="86,294,0,0" VerticalAlignment="Top" Height="38" Width="115" Click="Sync_Sequential_Click"/>
-        <Button Content="Parallel" FontSize="16" HorizontalAlignment="Left" Margin="251,166,0,0" VerticalAlignment="Top" Height="38" Width="115" Click="Async_Parallel_Click"/>
-        <Button Content="Parallel" FontSize="16" HorizontalAlignment="Left" Margin="251,294,0,0" VerticalAlignment="Top" Height="38" Width="115" Click="Sync_Parallel_Click"/>
-        <Rectangle HorizontalAlignment="Left" Height="252" Margin="435,102,0,0" Stroke="Black" VerticalAlignment="Top" Width="2"/>
-        <Label Content="Async" FontSize="20" HorizontalAlignment="Left" Margin="59,102,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <Label Content="Sync" FontSize="20" HorizontalAlignment="Left" Margin="59,237,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <Label Content="Algorithm" x:Name="lbAlgorithm" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" Margin="454,102,0,0" VerticalAlignment="Top"/>
-        <Label Content="Bubble Sort" HorizontalAlignment="Left" Margin="460,151,0,0" VerticalAlignment="Top"/>
-        <Label Content="Selection Sort" HorizontalAlignment="Left" Margin="460,190,0,0" VerticalAlignment="Top"/>
-        <Label Content="Quick Sort" HorizontalAlignment="Left" Margin="460,264,0,0" VerticalAlignment="Top"/>
-        <Label Content="Shell Sort" HorizontalAlignment="Left" Margin="462,302,0,0" VerticalAlignment="Top"/>
-        <Label Content="Merge sort" HorizontalAlignment="Left" Margin="460,228,0,0" VerticalAlignment="Top"/>
-        <Label Content="Total Time" HorizontalAlignment="Left" Margin="460,342,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.423,0.495"/>
-        <TextBlock HorizontalAlignment="Left" x:Name="txtBubbleSort" Margin="625,156,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="0s" VerticalAlignment="Top" Width="50"/>
-        <TextBlock HorizontalAlignment="Left" x:Name="txtSelectionSort" Margin="625,195,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="0s" VerticalAlignment="Top" Width="50"/>
-        <TextBlock HorizontalAlignment="Left" x:Name="txtMergeSort" Margin="625,233,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="0s" VerticalAlignment="Top" Width="50"/>
-        <TextBlock HorizontalAlignment="Left" x:Name="txtQuickSort" Margin="625,269,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="0s" VerticalAlignment="Top" Width="50"/>
-        <TextBlock HorizontalAlignment="Left" x:Name="txtShellSort" Margin="625,307,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="0s" VerticalAlignment="Top" Width="50"/>
-        <TextBlock HorizontalAlignment="Left" x:Name="txtTotal" Margin="625,347,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="0s" VerticalAlignment="Top" Width="50"/>
-        <Label x:Name="txtThreadUsed" HorizontalAlignment="Center" Margin="0,65,0,0" VerticalAlignment="Top"/>
+        <Button Content="Sequential" FontSize="16" HorizontalAlignment="Left" Margin="24,63,0,0" VerticalAlignment="Top" Height="38" Width="115" Click="Async_Sequential_Click"/>
+        <Button Content="Sequential"  FontSize="16" HorizontalAlignment="Left" Margin="515,63,0,0" VerticalAlignment="Top" Height="38" Width="114" Click="Sync_Sequential_Click"/>
+        <Button Content="Parallel" FontSize="16" HorizontalAlignment="Left" Margin="265,63,0,0" VerticalAlignment="Top" Height="38" Width="116" Click="Async_Parallel_Click"/>
+        <Button Content="Parallel" FontSize="16" HorizontalAlignment="Left" Margin="777,63,0,0" VerticalAlignment="Top" Height="38" Width="115" Click="Sync_Parallel_Click"/>
+
+        <TextBlock HorizontalAlignment="Left" x:Name="txtBubble_Result" Margin="342,223,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="0s" VerticalAlignment="Top" Width="609" Height="25"/>
+        <TextBlock HorizontalAlignment="Left" x:Name="txtSelection_Result" Margin="350,265,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="0s" VerticalAlignment="Top" Width="601" Height="13"/>
+        <TextBlock HorizontalAlignment="Left" x:Name="txtMerge_Result" Margin="350,303,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="0s" VerticalAlignment="Top" Width="601" Height="26"/>
+        <TextBlock HorizontalAlignment="Left" x:Name="txtSQuick_Result" Margin="342,347,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="4s" VerticalAlignment="Top" Width="609" Height="25"/>
+        <TextBlock HorizontalAlignment="Left" x:Name="txtShell_Result" Margin="342,382,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="5s" VerticalAlignment="Top" Width="609" Height="25"/>
+
+        <Rectangle HorizontalAlignment="Left" Height="252" Margin="67,177,0,0" Stroke="Black" VerticalAlignment="Top" Width="2"/>
+        <Label Content="Async" FontSize="20" HorizontalAlignment="Left" Margin="24,7,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label Content="Sync" FontSize="20" HorizontalAlignment="Left" Margin="515,17,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label Content="Algorithm" x:Name="lbAlgorithm" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" Margin="86,177,0,0" VerticalAlignment="Top"/>
+        <Label Content="Bubble Sort" HorizontalAlignment="Left" Margin="92,226,0,0" VerticalAlignment="Top"/>
+        <Label Content="Selection Sort" HorizontalAlignment="Left" Margin="92,265,0,0" VerticalAlignment="Top"/>
+        <Label Content="Quick Sort" HorizontalAlignment="Left" Margin="92,339,0,0" VerticalAlignment="Top"/>
+        <Label Content="Shell Sort" HorizontalAlignment="Left" Margin="94,377,0,0" VerticalAlignment="Top"/>
+        <Label Content="Merge sort" HorizontalAlignment="Left" Margin="92,303,0,0" VerticalAlignment="Top"/>
+        <Label Content="Total Time" HorizontalAlignment="Left" Margin="92,417,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.423,0.495"/>
+        <TextBlock HorizontalAlignment="Left" x:Name="txtBubbleSort" Margin="209,231,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="0s" VerticalAlignment="Top" Width="50"/>
+        <TextBlock HorizontalAlignment="Left" x:Name="txtSelectionSort" Margin="209,270,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="0s" VerticalAlignment="Top" Width="50"/>
+        <TextBlock HorizontalAlignment="Left" x:Name="txtMergeSort" Margin="209,308,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="0s" VerticalAlignment="Top" Width="50"/>
+        <TextBlock HorizontalAlignment="Left" x:Name="txtQuickSort" Margin="209,344,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="0s" VerticalAlignment="Top" Width="50"/>
+        <TextBlock HorizontalAlignment="Left" x:Name="txtShellSort" Margin="209,382,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="0s" VerticalAlignment="Top" Width="50"/>
+        <TextBlock HorizontalAlignment="Left" x:Name="txtTotal" Margin="209,422,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="0s" VerticalAlignment="Top" Width="50"/>
+        
+        <TextBlock HorizontalAlignment="Left" x:Name="txtBubbleSort_ThreadID" Margin="290,231,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="0s" VerticalAlignment="Top" Width="50"/>
+        <TextBlock HorizontalAlignment="Left" x:Name="txtSelectionSort_ThreadID" Margin="290,270,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="0s" VerticalAlignment="Top" Width="50"/>
+        <TextBlock HorizontalAlignment="Left" x:Name="txtMergeSort_ThreadID" Margin="290,308,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="0s" VerticalAlignment="Top" Width="50"/>
+        <TextBlock HorizontalAlignment="Left" x:Name="txtQuickSort_ThreadID" Margin="290,344,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="0s" VerticalAlignment="Top" Width="50"/>
+        <TextBlock HorizontalAlignment="Left" x:Name="txtShellSort_ThreadID" Margin="290,382,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="0s" VerticalAlignment="Top" Width="50"/>
+        <TextBlock HorizontalAlignment="Left" x:Name="txtThreadUsed" Margin="290,464,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="1.58,0.161"/>
     </Grid>
 </Window>

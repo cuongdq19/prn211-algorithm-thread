@@ -24,7 +24,6 @@ namespace GroupProject
 
         private void MergeMethod(int[] arr)
         {
-
             if (arr.Length < 2)
             {
                 return;
@@ -75,6 +74,7 @@ namespace GroupProject
                 arr[k++] = right[j++];
             }
         }
+
         public async Task<string> MergeSort(int[] numbers)
         {
             Stopwatch stopwatch = new Stopwatch();
@@ -82,14 +82,13 @@ namespace GroupProject
             await Task.Run(() =>
             {
                 MergeMethod(numbers);
-
             });
 
             stopwatch.Stop();
             return stopwatch.ElapsedMilliseconds.ToString();
         }
 
-        public void QuickSort(int[] arr, int left, int right)
+        private void QuickSort(int[] arr, int left, int right)
         {
             if (left < right)
             {
@@ -102,7 +101,6 @@ namespace GroupProject
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            int temp;
             await Task.Run(() =>
             {
                 int temp;
@@ -123,16 +121,6 @@ namespace GroupProject
             stopwatch.Stop();
             return stopwatch.ElapsedMilliseconds.ToString();
         }
-
-        private static int GetThreadsUsed()
-        {
-            ThreadPool.GetAvailableThreads(out int availableWorker, out int _);
-            ThreadPool.GetMaxThreads(out int maxWorker, out int _);
-            int threadUsed = maxWorker - availableWorker;
-
-            return threadUsed;
-        }
-
 
         public async Task<string> SelectionSort(int[] arr)
         {
@@ -162,7 +150,7 @@ namespace GroupProject
             return stopwatch.ElapsedMilliseconds.ToString();
         }
 
-        private int Partition(int[] arr, int left, int right)
+        private static int Partition(int[] arr, int left, int right)
         {
             int pivot = arr[right];
             int i = left - 1;
@@ -185,7 +173,7 @@ namespace GroupProject
             return i + 1;
         }
 
-        public void ShellSort(int[] array)
+        private static void ShellSort(int[] array)
         {
             int n = array.Length;
             int gap = n / 2;
