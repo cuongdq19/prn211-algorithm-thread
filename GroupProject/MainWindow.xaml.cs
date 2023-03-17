@@ -437,7 +437,7 @@ namespace GroupProject
 
                 Dispatcher.Invoke(() =>
                 {
-                    txtShellSort.Text = sw.ElapsedMilliseconds.ToString() + "ms";
+                    txtMergeSort.Text = sw.ElapsedMilliseconds.ToString() + "ms";
                 });
                 return sw.ElapsedMilliseconds.ToString() + "ms";
             });
