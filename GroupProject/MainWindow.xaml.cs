@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
@@ -62,13 +63,11 @@ namespace GroupProject
             txtShell_Result.Text = ArrayToString(shellSortArray);
             txtMerge_Result.Text = ArrayToString(mergeSortArray);
 
-
             Task.Run(() =>
             {
-
                 threads.Add(Thread.CurrentThread.ManagedThreadId);
 
-                sw = Stopwatch.StartNew();
+                sw.Start();
 
                 BubbleSortSync(bubbleSortArray);
                 SelectionSortSync(selectionSortArray);
@@ -77,9 +76,8 @@ namespace GroupProject
                 MergeSortSync(mergeSortArray);
 
                 sw.Stop();
-
-                UpdateText(threads.Distinct().Count().ToString(), txtThreadUsed);
-                UpdateText(sw.ElapsedMilliseconds.ToString() + "ms", txtTotal);
+                UpdateTextAsync(threads.Distinct().Count().ToString(), txtThreadUsed);
+                UpdateTextAsync(sw.ElapsedMilliseconds.ToString() + "ms", txtTotal);
             });
 
         }
@@ -113,13 +111,13 @@ namespace GroupProject
             threads.Add(uiThread);
             Trace.WriteLine($"UI Thread: {uiThread}");
 
-            Task.Run(() =>
+            Task.Run(async () =>
             {
                 threads.Add(Thread.CurrentThread.ManagedThreadId);
 
                 sw = Stopwatch.StartNew();
 
-                Task.WhenAll(BubbleSortAsync(bubbleSortArray),
+                await Task.WhenAll(BubbleSortAsync(bubbleSortArray),
                                     SelectionSortAsync(selectionSortArray),
                                     QuickSortAsync(quickSortArray),
                                     ShellSortAsync(shellSortArray),
@@ -128,7 +126,7 @@ namespace GroupProject
 
                 UpdateTextAsync(threads.Distinct().Count().ToString(), txtThreadUsed);
                 UpdateTextAsync(sw.ElapsedMilliseconds.ToString() + "ms", txtTotal);
-            });            
+            });
         }
 
         private void Sync_Sequential_Click(object sender, RoutedEventArgs e)
@@ -198,17 +196,23 @@ namespace GroupProject
             threads.Add(uiThread);
             Trace.WriteLine($"UI Thread: {uiThread}");
 
+            List<Action> list = new List<Action>()
+            {
+                () => BubbleSortSync(bubbleSortArray),
+                () => SelectionSortSync(selectionSortArray),
+                () => QuickSortSync(quickSortArray),
+                () => MergeSortSync(mergeSortArray),
+                () => ShellSortSync(shellSortArray)
+            };
             Task.Run(() =>
             {
                 threads.Add(Thread.CurrentThread.ManagedThreadId);
 
                 sw.Start();
 
-                Parallel.Invoke(() => BubbleSortSync(bubbleSortArray),
-                    () => SelectionSortSync(selectionSortArray),
-                    () => QuickSortSync(quickSortArray),
-                    () => MergeSortSync(mergeSortArray),
-                    () => ShellSortSync(shellSortArray));
+                Parallel.ForEach(list, (function) => function());
+
+
                 sw.Stop();
 
                 UpdateText(threads.Distinct().Count().ToString(), txtThreadUsed);
@@ -257,8 +261,8 @@ namespace GroupProject
 
             string result = SortMethods.ShellSort(arr);
 
-            UpdateList(arr, txtShell_Result);
-            UpdateText(result, txtShellSort);
+            UpdateListAsync(arr, txtShell_Result);
+            UpdateTextAsync(result, txtShellSort);
         }
         private void MergeSortSync(int[] arr)
         {
@@ -266,8 +270,8 @@ namespace GroupProject
 
             var result = SortMethods.MergeSort(arr);
 
-            UpdateList(arr, txtMerge_Result);
-            UpdateText(result, txtMergeSort);
+            UpdateListAsync(arr, txtMerge_Result);
+            UpdateTextAsync(result, txtMergeSort);
 
         }
         private void QuickSortSync(int[] arr)
@@ -276,8 +280,8 @@ namespace GroupProject
 
             string result = SortMethods.QuickSort(arr);
 
-            UpdateList(arr, txtSQuick_Result);
-            UpdateText(result, txtQuickSort);
+            UpdateListAsync(arr, txtSQuick_Result);
+            UpdateTextAsync(result, txtQuickSort);
         }
 
         private void BubbleSortSync(int[] arr)
@@ -286,9 +290,9 @@ namespace GroupProject
 
             string result = SortMethods.BubbleSort(arr);
 
-            UpdateList(arr, txtBubble_Result);
+            UpdateListAsync(arr, txtBubble_Result);
 
-            UpdateText(result, txtBubbleSort);
+            UpdateTextAsync(result, txtBubbleSort);
         }
 
         private void SelectionSortSync(int[] arr)
@@ -297,8 +301,8 @@ namespace GroupProject
 
             string result = SortMethods.SelectionSort(arr);
 
-            UpdateList(arr, txtSelection_Result);
-            UpdateText(result, txtSelectionSort);
+            UpdateListAsync(arr, txtSelection_Result);
+            UpdateTextAsync(result, txtSelectionSort);
         }
         #endregion
 
