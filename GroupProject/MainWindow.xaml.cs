@@ -52,17 +52,20 @@ namespace GroupProject
             int[] selectionSortArray = new int[10000];
             int[] quickSortArray = new int[10000];
             int[] shellSortArray = new int[10000];
+            int[] mergeSortArray = new int[10000];
             Array.Copy(_srcArray, bubbleSortArray, _srcArray.Length);
             Array.Copy(_srcArray, selectionSortArray, _srcArray.Length);
             Array.Copy(_srcArray, quickSortArray, _srcArray.Length);
             Array.Copy(_srcArray, shellSortArray, _srcArray.Length);
+            Array.Copy(_srcArray, mergeSortArray, _srcArray.Length);
 
             txtBubble_Result.Text = ArrayToString(bubbleSortArray);
             txtSelection_Result.Text = ArrayToString(selectionSortArray);
             txtSQuick_Result.Text = ArrayToString(quickSortArray);
             txtShell_Result.Text = ArrayToString(shellSortArray);
+            txtMerge_Result.Text = ArrayToString(mergeSortArray);
 
-            string bubbleSortResult = "", selectionSortResult = "", quickSortResult = "", shellSortResult = "";
+            string bubbleSortResult = "", selectionSortResult = "", quickSortResult = "", shellSortResult = "", mergeSortResult = "";
 
 
             Thread sortThread = new Thread(() =>
@@ -73,6 +76,7 @@ namespace GroupProject
                 selectionSortResult = SelectionSortSync(selectionSortArray);
                 quickSortResult = QuickSortSync(quickSortArray);
                 shellSortResult = ShellSortSync(shellSortArray);
+                mergeSortResult = MergeSortSync(mergeSortArray);
 
                 sw.Stop();
 
@@ -82,6 +86,7 @@ namespace GroupProject
                     txtSelectionSort.Text = selectionSortResult;
                     txtQuickSort.Text = quickSortResult;
                     txtShellSort.Text = shellSortResult;
+                    txtMergeSort.Text = mergeSortResult;
                     txtTotal.Text = sw.ElapsedMilliseconds.ToString() + "ms";
                     txtThreadUsed.Text = threads.Distinct().Count().ToString();
 
@@ -105,15 +110,18 @@ namespace GroupProject
             int[] selectionSortArray = new int[10000];
             int[] quickSortArray = new int[10000];
             int[] shellSortArray = new int[10000];
+            int[] mergeSortArray = new int[10000];
             Array.Copy(_srcArray, bubbleSortArray, _srcArray.Length);
             Array.Copy(_srcArray, selectionSortArray, _srcArray.Length);
             Array.Copy(_srcArray, quickSortArray, _srcArray.Length);
             Array.Copy(_srcArray, shellSortArray, _srcArray.Length);
+            Array.Copy(_srcArray, mergeSortArray, _srcArray.Length);
 
             txtBubble_Result.Text = ArrayToString(bubbleSortArray);
             txtSelection_Result.Text = ArrayToString(selectionSortArray);
             txtSQuick_Result.Text = ArrayToString(quickSortArray);
             txtShell_Result.Text = ArrayToString(shellSortArray);
+            txtMerge_Result.Text = ArrayToString(mergeSortArray);
 
             int uiThread = Thread.CurrentThread.ManagedThreadId;
             threads.Add(uiThread);
@@ -123,12 +131,13 @@ namespace GroupProject
             var selectionSortTask = SelectionSortAsync(selectionSortArray);
             var quickSortTask = QuickSortAsync(quickSortArray);
             var shellSortTask = ShellSortAsync(shellSortArray);
+            var mergeSortTask = MergeSortAsync(mergeSortArray);
 
             Thread sortThread = new Thread(async () =>
             {
                 threads.Add(Thread.CurrentThread.ManagedThreadId);
                 sw.Start();
-                var result = await Task.WhenAll(bubbleSortTask, selectionSortTask, quickSortTask, shellSortTask);
+                var result = await Task.WhenAll(bubbleSortTask, selectionSortTask, quickSortTask, shellSortTask,mergeSortTask);
                 sw.Stop();
                 Dispatcher.Invoke(() =>
                 {
@@ -136,6 +145,7 @@ namespace GroupProject
                     txtSelectionSort.Text = result[1];
                     txtQuickSort.Text = result[2];
                     txtShellSort.Text = result[3];
+                    txtMergeSort.Text = result[4];
                     txtThreadUsed.Text = threads.Distinct().Count().ToString();
                 });
             });
@@ -158,17 +168,20 @@ namespace GroupProject
             int[] selectionSortArray = new int[10000];
             int[] quickSortArray = new int[10000];
             int[] shellSortArray = new int[10000];
+            int[] mergeSortArray = new int[10000];
             Array.Copy(_srcArray, bubbleSortArray, _srcArray.Length);
             Array.Copy(_srcArray, selectionSortArray, _srcArray.Length);
             Array.Copy(_srcArray, quickSortArray, _srcArray.Length);
             Array.Copy(_srcArray, shellSortArray, _srcArray.Length);
+            Array.Copy(_srcArray, mergeSortArray, _srcArray.Length);
 
             txtBubble_Result.Text = ArrayToString(bubbleSortArray);
             txtSelection_Result.Text = ArrayToString(selectionSortArray);
             txtSQuick_Result.Text = ArrayToString(quickSortArray);
             txtShell_Result.Text = ArrayToString(shellSortArray);
+            txtMerge_Result.Text = ArrayToString(mergeSortArray);
 
-            string bubbleSortResult = "", selectionSortResult = "", quickSortResult = "", shellSortResult = "";
+            string bubbleSortResult = "", selectionSortResult = "", quickSortResult = "", shellSortResult = "", mergeSortResult = "";
 
             sw.Start();
 
@@ -176,6 +189,7 @@ namespace GroupProject
             selectionSortResult = SelectionSortSync(selectionSortArray);
             quickSortResult = QuickSortSync(quickSortArray);
             shellSortResult = ShellSortSync(shellSortArray);
+            mergeSortResult = MergeSortSync(mergeSortArray);
             sw.Stop();
 
             Dispatcher.Invoke(() =>
@@ -184,6 +198,7 @@ namespace GroupProject
                 txtSelectionSort.Text = selectionSortResult;
                 txtQuickSort.Text = quickSortResult;
                 txtShellSort.Text = shellSortResult;
+                txtMergeSort.Text = mergeSortResult;
                 txtTotal.Text = sw.ElapsedMilliseconds.ToString() + "ms";
                 txtThreadUsed.Text = threads.Distinct().Count().ToString();
             });
@@ -199,17 +214,20 @@ namespace GroupProject
             int[] selectionSortArray = new int[10000];
             int[] quickSortArray = new int[10000];
             int[] shellSortArray = new int[10000];
+            int[] mergeSortArray = new int[10000];
             Array.Copy(_srcArray, bubbleSortArray, _srcArray.Length);
             Array.Copy(_srcArray, selectionSortArray, _srcArray.Length);
             Array.Copy(_srcArray, quickSortArray, _srcArray.Length);
             Array.Copy(_srcArray, shellSortArray, _srcArray.Length);
+            Array.Copy(_srcArray, mergeSortArray, _srcArray.Length);
 
             txtBubble_Result.Text = ArrayToString(bubbleSortArray);
             txtSelection_Result.Text = ArrayToString(selectionSortArray);
             txtSQuick_Result.Text = ArrayToString(quickSortArray);
             txtShell_Result.Text = ArrayToString(shellSortArray);
 
-            string bubbleSortResult = "", selectionSortResult = "", quickSortResult = "", shellSortResult = "";
+            txtMerge_Result.Text = ArrayToString(mergeSortArray);
+            string bubbleSortResult = "", selectionSortResult = "", quickSortResult = "", shellSortResult = "",mergeSortResult="";
 
             lbAlgorithm.Content = "Sync - Parallel";
 
@@ -224,6 +242,7 @@ namespace GroupProject
                 Parallel.Invoke(() => bubbleSortResult = BubbleSortSync(bubbleSortArray),
                 () => selectionSortResult = SelectionSortSync(selectionSortArray),
                 () => quickSortResult = QuickSortSync(quickSortArray),
+                () => mergeSortResult = MergeSortSync(mergeSortArray),
                 () => shellSortResult = ShellSortSync(shellSortArray));
                 sw.Stop();
                 Dispatcher.Invoke(() =>
@@ -232,6 +251,7 @@ namespace GroupProject
                     txtSelectionSort.Text = selectionSortResult;
                     txtQuickSort.Text = quickSortResult;
                     txtShellSort.Text = shellSortResult;
+                    txtMergeSort.Text = mergeSortResult;
                     txtTotal.Text = sw.ElapsedMilliseconds.ToString() + "ms";
 
                     txtThreadUsed.Text = threads.Distinct().Count().ToString();
@@ -272,6 +292,17 @@ namespace GroupProject
             sw.Stop();
 
             UpdateList(arr, txtShell_Result);
+            return sw.ElapsedMilliseconds.ToString() + "ms";
+        }
+        private string MergeSortSync(int[] arr)
+        {
+            threads.Add(Thread.CurrentThread.ManagedThreadId);
+
+            Stopwatch sw = Stopwatch.StartNew();
+            SortMethods.MergeSort(arr);
+            sw.Stop();
+
+            UpdateList(arr, txtMerge_Result);
             return sw.ElapsedMilliseconds.ToString() + "ms";
         }
         private string QuickSortSync(int[] arr)
@@ -384,6 +415,26 @@ namespace GroupProject
                 sw.Stop();
 
                 UpdateList(arr, txtShell_Result);
+
+                Dispatcher.Invoke(() =>
+                {
+                    txtShellSort.Text = sw.ElapsedMilliseconds.ToString() + "ms";
+                });
+                return sw.ElapsedMilliseconds.ToString() + "ms";
+            });
+        }
+        private async Task<string> MergeSortAsync(int[] arr)
+        {
+
+            return await Task.Run(() =>
+            {
+                threads.Add(Thread.CurrentThread.ManagedThreadId);
+
+                Stopwatch sw = Stopwatch.StartNew();
+                SortMethods.MergeSort(arr);
+                sw.Stop();
+
+                UpdateList(arr, txtMerge_Result);
 
                 Dispatcher.Invoke(() =>
                 {

@@ -112,7 +112,79 @@ namespace GroupProject
 
         }
 
-       
+        public static string MergeSort(int[] arr)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+
+            Trace.WriteLine($"Merge sort thread: {Thread.CurrentThread.ManagedThreadId}");
+
+            MergeSort(arr, 0, arr.Length - 1);
+            sw.Stop();
+            return sw.ElapsedMilliseconds.ToString() + "ms";
+
+        }
+        public static void MergeSort(int[] list, int left, int right)
+        {
+            if (left < right)
+            {
+                int mid = (left + right) / 2;
+                MergeSort(list, left, mid);
+                MergeSort(list, mid + 1, right);
+                Merge(list, left, mid, right);
+            }
+        }
+
+        private static void Merge(int[] list, int left, int mid, int right)
+        {
+            int n1 = mid - left + 1;
+            int n2 = right - mid;
+
+            int[] L = new int[n1];
+            int[] R = new int[n2];
+
+            for (int i = 0; i < n1; i++)
+            {
+                L[i] = list[left + i];
+            }
+
+            for (int j = 0; j < n2; j++)
+            {
+                R[j] = list[mid + 1 + j];
+            }
+
+            int k = left;
+            int x = 0;
+            int y = 0;
+
+            while (x < n1 && y < n2)
+            {
+                if (L[x] <= R[y])
+                {
+                    list[k] = L[x];
+                    x++;
+                }
+                else
+                {
+                    list[k] = R[y];
+                    y++;
+                }
+                k++;
+            }
+
+            while (x < n1)
+            {
+                list[k] = L[x];
+                x++;
+                k++;
+            }
+
+            while (y < n2)
+            {
+                list[k] = R[y];
+                y++;
+                k++;
+            }
+        }
 
 
 
