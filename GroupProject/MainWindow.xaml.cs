@@ -35,7 +35,7 @@ namespace GroupProject
             return autoGen;
         }
 
-        private async void Async_Sequential_Click(object sender, RoutedEventArgs e)
+        private void Async_Sequential_Click(object sender, RoutedEventArgs e)
         {
             threads.Clear();
 
@@ -63,7 +63,7 @@ namespace GroupProject
             txtMerge_Result.Text = ArrayToString(mergeSortArray);
 
 
-            await Task.Run(() =>
+            Task.Run(() =>
             {
                 sw = Stopwatch.StartNew();
 
@@ -81,7 +81,7 @@ namespace GroupProject
 
         }
 
-        private void Async_Parallel_Click(object sender, RoutedEventArgs e)
+        private async void Async_Parallel_Click(object sender, RoutedEventArgs e)
         {
             threads.Clear();
             lbAlgorithm.Content = "Async - Parallel";
@@ -115,12 +115,12 @@ namespace GroupProject
             var shellSortTask = ShellSortAsync(shellSortArray);
             var mergeSortTask = MergeSortAsync(mergeSortArray);
 
-            Task.Run(() =>
+            await Task.Run(async () =>
             {
                 threads.Add(Thread.CurrentThread.ManagedThreadId);
 
                 sw.Start();
-                Task.WhenAll(bubbleSortTask, selectionSortTask, quickSortTask, shellSortTask, mergeSortTask);
+                await Task.WhenAll(bubbleSortTask, selectionSortTask, quickSortTask, shellSortTask, mergeSortTask);
                 sw.Stop();
 
                 UpdateText(threads.Distinct().Count().ToString(), txtThreadUsed);
@@ -169,7 +169,7 @@ namespace GroupProject
             UpdateText(sw.ElapsedMilliseconds.ToString() + "ms", txtTotal);
         }
 
-        private async void Sync_Parallel_Click(object sender, RoutedEventArgs e)
+        private void Sync_Parallel_Click(object sender, RoutedEventArgs e)
         {
             threads.Clear();
 
@@ -199,36 +199,30 @@ namespace GroupProject
             Trace.WriteLine($"UI Thread: {uiThread}");
 
 
-            await Task.Run(() =>
-            {
-                sw.Start();
+            sw.Start();
 
-                Parallel.Invoke(() => BubbleSortSync(bubbleSortArray),
-                    () => SelectionSortSync(selectionSortArray),
-                    () => QuickSortSync(quickSortArray),
-                    () => MergeSortSync(mergeSortArray),
-                    () => ShellSortSync(shellSortArray));
-                sw.Stop();
+            Parallel.Invoke(() => BubbleSortSync(bubbleSortArray),
+                () => SelectionSortSync(selectionSortArray),
+                () => QuickSortSync(quickSortArray),
+                () => MergeSortSync(mergeSortArray),
+                () => ShellSortSync(shellSortArray));
+            sw.Stop();
 
-                UpdateText(threads.Distinct().Count().ToString(), txtThreadUsed);
-                UpdateText(sw.ElapsedMilliseconds.ToString() + "ms", txtTotal);
-            });
+            UpdateText(threads.Distinct().Count().ToString(), txtThreadUsed);
+            UpdateText(sw.ElapsedMilliseconds.ToString() + "ms", txtTotal);
 
 
-        }
-
-        private void UpdateResult(ref ConcurrentBag<int> threads, TextBlock textBlock, TextBlock threadTextBlock, string result)
-        {
-            var threadId = Thread.CurrentThread.ManagedThreadId;
-            threads.Add(threadId);
-            Dispatcher.Invoke(() =>
-            {
-                threadTextBlock.Text = threadId.ToString();
-                textBlock.Text = result;
-            });
         }
 
         private void UpdateList(int[] arr, TextBlock txtResult)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                txtResult.Text = ArrayToString(arr);
+            });
+        }
+
+        private void UpdateListAsync(int[] arr, TextBlock txtResult)
         {
             Dispatcher.BeginInvoke(() =>
             {
@@ -237,6 +231,13 @@ namespace GroupProject
         }
 
         private void UpdateText(string text, TextBlock txt)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                txt.Text = text;
+            });
+        }
+        private void UpdateTextAsync(string text, TextBlock txt)
         {
             Dispatcher.BeginInvoke(() =>
             {
@@ -298,31 +299,72 @@ namespace GroupProject
         #endregion
 
         #region Sort Async Methods
-        private async Task BubbleSortAsync(int[] arr)
+        private Task BubbleSortAsync(int[] arr)
         {
 
-            await Task.Run(() => BubbleSortSync(arr));
+            return Task.Run(() =>
+            {
+                threads.Add(Thread.CurrentThread.ManagedThreadId);
+
+                string result = SortMethods.BubbleSort(arr);
+
+                UpdateListAsync(arr, txtBubble_Result);
+
+                UpdateTextAsync(result, txtBubbleSort);
+            });
         }
 
-        private async Task SelectionSortAsync(int[] arr)
+        private Task SelectionSortAsync(int[] arr)
         {
 
-            await Task.Run(() => SelectionSortSync(arr));
+            return Task.Run(() =>
+            {
+                threads.Add(Thread.CurrentThread.ManagedThreadId);
+
+                string result = SortMethods.SelectionSort(arr);
+
+                UpdateListAsync(arr, txtSelection_Result);
+                UpdateTextAsync(result, txtSelectionSort);
+            });
         }
-        private async Task QuickSortAsync(int[] arr)
+        private Task QuickSortAsync(int[] arr)
         {
 
-            await Task.Run(() => QuickSortSync(arr));
+            return Task.Run(() =>
+            {
+                threads.Add(Thread.CurrentThread.ManagedThreadId);
+
+                string result = SortMethods.QuickSort(arr);
+
+                UpdateListAsync(arr, txtSQuick_Result);
+                UpdateTextAsync(result, txtQuickSort);
+            });
         }
-        private async Task ShellSortAsync(int[] arr)
+        private Task ShellSortAsync(int[] arr)
         {
 
-            await Task.Run(() => ShellSortSync(arr));
+            return Task.Run(() =>
+            {
+                threads.Add(Thread.CurrentThread.ManagedThreadId);
+
+                string result = SortMethods.ShellSort(arr);
+
+                UpdateListAsync(arr, txtShell_Result);
+                UpdateTextAsync(result, txtShellSort);
+            });
         }
-        private async Task MergeSortAsync(int[] arr)
+        private Task MergeSortAsync(int[] arr)
         {
 
-            await Task.Run(() => MergeSortSync(arr));
+            return Task.Run(() =>
+            {
+                threads.Add(Thread.CurrentThread.ManagedThreadId);
+
+                var result = SortMethods.MergeSort(arr);
+
+                UpdateListAsync(arr, txtMerge_Result);
+                UpdateTextAsync(result, txtMergeSort);
+            });
         }
         #endregion
 
