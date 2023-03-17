@@ -36,7 +36,6 @@ namespace GroupProject
 
             sw.Stop();
 
-
             return sw.ElapsedMilliseconds.ToString() + "ms";
         }
 
