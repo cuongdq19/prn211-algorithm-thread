@@ -65,7 +65,7 @@ namespace GroupProject
             txtShell_Result.Text = ArrayToString(shellSortArray);
             txtMerge_Result.Text = ArrayToString(mergeSortArray);
 
-            Task.Run(() =>
+            new Thread(() =>
             {
                 threads.Add(Thread.CurrentThread.ManagedThreadId);
 
@@ -80,7 +80,7 @@ namespace GroupProject
                 sw.Stop();
                 UpdateTextAsync(threads.Distinct().Count().ToString(), txtThreadUsed);
                 UpdateTextAsync(sw.ElapsedMilliseconds.ToString() + "ms", txtTotal);
-            });
+            }).Start();
 
         }
 
@@ -114,7 +114,7 @@ namespace GroupProject
             Trace.WriteLine($"UI Thread: {uiThread}");
             UpdateTextAsync(Thread.CurrentThread.ManagedThreadId.ToString(), txtUi_ThreadID);
 
-            Task.Run(async () =>
+            new Thread(async () =>
             {
                 threads.Add(Thread.CurrentThread.ManagedThreadId);
 
@@ -129,7 +129,7 @@ namespace GroupProject
 
                 UpdateTextAsync(threads.Distinct().Count().ToString(), txtThreadUsed);
                 UpdateTextAsync(sw.ElapsedMilliseconds.ToString() + "ms", txtTotal);
-            });
+            }).Start();
         }
 
         private void Sync_Sequential_Click(object sender, RoutedEventArgs e)
