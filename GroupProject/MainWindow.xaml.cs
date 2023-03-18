@@ -201,21 +201,17 @@ namespace GroupProject
             Trace.WriteLine($"UI Thread: {uiThread}");
             UpdateTextAsync(Thread.CurrentThread.ManagedThreadId.ToString(), txtUi_ThreadID);
 
-            List<Action> list = new List<Action>()
-            {
-                () => BubbleSortSync(bubbleSortArray),
-                () => SelectionSortSync(selectionSortArray),
-                () => QuickSortSync(quickSortArray),
-                () => MergeSortSync(mergeSortArray),
-                () => ShellSortSync(shellSortArray)
-            };
             Task.Run(() =>
             {
                 threads.Add(Thread.CurrentThread.ManagedThreadId);
 
                 sw.Start();
 
-                Parallel.ForEach(list, (function) => function());
+                Parallel.Invoke(() => BubbleSortSync(bubbleSortArray),
+                () => SelectionSortSync(selectionSortArray),
+                () => QuickSortSync(quickSortArray),
+                () => MergeSortSync(mergeSortArray),
+                () => ShellSortSync(shellSortArray));
 
 
                 sw.Stop();
