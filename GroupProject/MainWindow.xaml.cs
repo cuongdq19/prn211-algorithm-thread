@@ -42,6 +42,8 @@ namespace GroupProject
 
             threads.Add(Thread.CurrentThread.ManagedThreadId);
 
+            UpdateTextAsync(Thread.CurrentThread.ManagedThreadId.ToString(), txtUi_ThreadID);
+
             lbAlgorithm.Content = "Async - Sequential";
 
             sw.Reset();
@@ -110,6 +112,7 @@ namespace GroupProject
             int uiThread = Thread.CurrentThread.ManagedThreadId; // UI Thread
             threads.Add(uiThread);
             Trace.WriteLine($"UI Thread: {uiThread}");
+            UpdateTextAsync(Thread.CurrentThread.ManagedThreadId.ToString(), txtUi_ThreadID);
 
             Task.Run(async () =>
             {
@@ -135,6 +138,7 @@ namespace GroupProject
             threads.Clear();
 
             threads.Add(Thread.CurrentThread.ManagedThreadId);
+            UpdateTextAsync(Thread.CurrentThread.ManagedThreadId.ToString(), txtUi_ThreadID);
 
             sw.Reset();
 
@@ -163,8 +167,8 @@ namespace GroupProject
             MergeSortSync(mergeSortArray);
             sw.Stop();
 
-            UpdateText(threads.Distinct().Count().ToString(), txtThreadUsed);
-            UpdateText(sw.ElapsedMilliseconds.ToString() + "ms", txtTotal);
+            UpdateTextAsync(threads.Distinct().Count().ToString(), txtThreadUsed);
+            UpdateTextAsync(sw.ElapsedMilliseconds.ToString() + "ms", txtTotal);
         }
 
         private void Sync_Parallel_Click(object sender, RoutedEventArgs e)
@@ -195,6 +199,7 @@ namespace GroupProject
             int uiThread = Thread.CurrentThread.ManagedThreadId;
             threads.Add(uiThread);
             Trace.WriteLine($"UI Thread: {uiThread}");
+            UpdateTextAsync(Thread.CurrentThread.ManagedThreadId.ToString(), txtUi_ThreadID);
 
             List<Action> list = new List<Action>()
             {
@@ -215,8 +220,8 @@ namespace GroupProject
 
                 sw.Stop();
 
-                UpdateText(threads.Distinct().Count().ToString(), txtThreadUsed);
-                UpdateText(sw.ElapsedMilliseconds.ToString() + "ms", txtTotal);
+                UpdateTextAsync(threads.Distinct().Count().ToString(), txtThreadUsed);
+                UpdateTextAsync(sw.ElapsedMilliseconds.ToString() + "ms", txtTotal);
             });
 
 
@@ -263,6 +268,7 @@ namespace GroupProject
 
             UpdateListAsync(arr, txtShell_Result);
             UpdateTextAsync(result, txtShellSort);
+            UpdateTextAsync(Thread.CurrentThread.ManagedThreadId.ToString(), txtShellSort_ThreadID);
         }
         private void MergeSortSync(int[] arr)
         {
@@ -272,6 +278,8 @@ namespace GroupProject
 
             UpdateListAsync(arr, txtMerge_Result);
             UpdateTextAsync(result, txtMergeSort);
+            UpdateTextAsync(Thread.CurrentThread.ManagedThreadId.ToString(), txtMergeSort_ThreadID);
+
 
         }
         private void QuickSortSync(int[] arr)
@@ -282,6 +290,8 @@ namespace GroupProject
 
             UpdateListAsync(arr, txtSQuick_Result);
             UpdateTextAsync(result, txtQuickSort);
+            UpdateTextAsync(Thread.CurrentThread.ManagedThreadId.ToString(), txtQuickSort_ThreadID);
+
         }
 
         private void BubbleSortSync(int[] arr)
@@ -293,6 +303,8 @@ namespace GroupProject
             UpdateListAsync(arr, txtBubble_Result);
 
             UpdateTextAsync(result, txtBubbleSort);
+            UpdateTextAsync(Thread.CurrentThread.ManagedThreadId.ToString(), txtBubbleSort_ThreadID);
+
         }
 
         private void SelectionSortSync(int[] arr)
@@ -303,6 +315,8 @@ namespace GroupProject
 
             UpdateListAsync(arr, txtSelection_Result);
             UpdateTextAsync(result, txtSelectionSort);
+            UpdateTextAsync(Thread.CurrentThread.ManagedThreadId.ToString(), txtSelectionSort_ThreadID);
+
         }
         #endregion
 
@@ -318,6 +332,8 @@ namespace GroupProject
                 UpdateListAsync(arr, txtBubble_Result);
 
                 UpdateTextAsync(result, txtBubbleSort);
+                UpdateTextAsync(Thread.CurrentThread.ManagedThreadId.ToString(), txtBubbleSort_ThreadID);
+
             });
         }
 
@@ -331,6 +347,8 @@ namespace GroupProject
 
                 UpdateListAsync(arr, txtSelection_Result);
                 UpdateTextAsync(result, txtSelectionSort);
+                UpdateTextAsync(Thread.CurrentThread.ManagedThreadId.ToString(), txtSelectionSort_ThreadID);
+
             });
         }
         private async Task QuickSortAsync(int[] arr)
@@ -343,6 +361,8 @@ namespace GroupProject
 
                 UpdateListAsync(arr, txtSQuick_Result);
                 UpdateTextAsync(result, txtQuickSort);
+                UpdateTextAsync(Thread.CurrentThread.ManagedThreadId.ToString(), txtQuickSort_ThreadID);
+
             });
         }
         private async Task ShellSortAsync(int[] arr)
@@ -355,6 +375,8 @@ namespace GroupProject
 
                 UpdateListAsync(arr, txtShell_Result);
                 UpdateTextAsync(result, txtShellSort);
+                UpdateTextAsync(Thread.CurrentThread.ManagedThreadId.ToString(), txtShellSort_ThreadID);
+
             });
         }
         private async Task MergeSortAsync(int[] arr)
@@ -367,6 +389,8 @@ namespace GroupProject
 
                 UpdateListAsync(arr, txtMerge_Result);
                 UpdateTextAsync(result, txtMergeSort);
+                UpdateTextAsync(Thread.CurrentThread.ManagedThreadId.ToString(), txtMergeSort_ThreadID);
+
             });
         }
         #endregion

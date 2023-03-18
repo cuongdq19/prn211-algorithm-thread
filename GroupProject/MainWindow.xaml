@@ -34,12 +34,15 @@
         <TextBlock HorizontalAlignment="Left" x:Name="txtQuickSort" Margin="209,344,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="0s" VerticalAlignment="Top" Width="50"/>
         <TextBlock HorizontalAlignment="Left" x:Name="txtShellSort" Margin="209,382,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="0s" VerticalAlignment="Top" Width="50"/>
         <TextBlock HorizontalAlignment="Left" x:Name="txtTotal" Margin="209,422,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="0s" VerticalAlignment="Top" Width="50"/>
-        
+
         <TextBlock HorizontalAlignment="Left" x:Name="txtBubbleSort_ThreadID" Margin="290,231,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="0s" VerticalAlignment="Top" Width="50"/>
+        <TextBlock HorizontalAlignment="Left" x:Name="txtUi_ThreadID" Margin="290,454,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="0s" VerticalAlignment="Top" Width="50"/>
         <TextBlock HorizontalAlignment="Left" x:Name="txtSelectionSort_ThreadID" Margin="290,270,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="0s" VerticalAlignment="Top" Width="50"/>
         <TextBlock HorizontalAlignment="Left" x:Name="txtMergeSort_ThreadID" Margin="290,308,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="0s" VerticalAlignment="Top" Width="50"/>
         <TextBlock HorizontalAlignment="Left" x:Name="txtQuickSort_ThreadID" Margin="290,344,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="0s" VerticalAlignment="Top" Width="50"/>
         <TextBlock HorizontalAlignment="Left" x:Name="txtShellSort_ThreadID" Margin="290,382,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="0s" VerticalAlignment="Top" Width="50"/>
-        <TextBlock HorizontalAlignment="Left" x:Name="txtThreadUsed" Margin="290,464,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="1.58,0.161"/>
+        <Label Content="Total Thread" HorizontalAlignment="Left" Margin="92,480,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.423,0.495"/>
+        <Label Content="UI Thread" HorizontalAlignment="Left" Margin="92,449,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.423,0.495"/>
+        <TextBlock HorizontalAlignment="Left" x:Name="txtThreadUsed" Margin="290,485,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="0s" VerticalAlignment="Top" Width="50"/>
     </Grid>
 </Window>
